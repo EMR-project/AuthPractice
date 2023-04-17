@@ -32,7 +32,7 @@ class UserControllerTest {
     @DisplayName("회원가입 성공")
     void join() throws Exception{
         String userName  = "sanghoon";
-        String password  = "1234";
+        String password  = "1243";
 
         mockMvc.perform(post("api/v1/users/join")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -44,7 +44,7 @@ class UserControllerTest {
     @DisplayName("회원가입 실패")
     void join_fail() throws Exception{
         String userName  = "sanghoon";
-        String password  = "1234";
+        String password  = "1243";
 
         mockMvc.perform(post("api/v1/users/join")
                         .contentType(MediaType.APPLICATION_JSON)
