@@ -1,6 +1,7 @@
 package com.emr.auth.controller;
 
 import com.emr.auth.domain.UserJoinRequest;
+import com.emr.auth.domain.dto.UserLoginRequest;
 import com.emr.auth.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,16 @@ public class UserController {
     private final UserService userService;
     @PostMapping("/join")
     public ResponseEntity<String> join(@RequestBody UserJoinRequest dto) {
-//        userService.join(dto.getUserName(), dto.getPassword());
+        userService.join(dto.getUserName(), dto.getPassword());
 
         return ResponseEntity.ok().body("회원가입 성공");
     }
+    @PostMapping("/login")
+    public ResponseEntity<String> join(@RequestBody UserLoginRequest dto) {
+        String token = userService.login(dto.getUserName(), dto.getPassword());
+
+        return ResponseEntity.ok().body(token);
+    }
+
+
 }
