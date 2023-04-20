@@ -5,8 +5,10 @@ import com.emr.auth.exception.AppException;
 import com.emr.auth.exception.ErrorCode;
 import com.emr.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import utils.JtwTokenUtil;
 
 @Service
 @RequiredArgsConstructor
@@ -14,6 +16,10 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
+    @Value("${jwt.token.secret}")
+    private String key;
+    private long expireTimeMs = 1000 * 60 * 60l;
+
 
     public String join(String userName, String password) {
         //User 중복 체크
@@ -37,11 +43,13 @@ public class UserService {
                 .orElseThrow(()->new AppException(ErrorCode.USERNAME_NOT_FOUND, "Username 이 없습니다"));
 
         //잘못된 password
-        if(!encoder.matches(selectUser.getPassword(), password)) {
+        if(!encoder.matches(password, selectUser.getPassword())) {
             throw new AppException(ErrorCode.INVALID_PASSWORD, "패스워드가 잘못되었음");
         }
 
-        return "Token 리턴";
+        String token = JtwTokenUtil.createToken(selectUser.getUserName(), key, expireTimeMs);
+
+        return token;
     }
 
 }

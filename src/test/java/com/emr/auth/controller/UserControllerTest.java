@@ -15,7 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -68,7 +67,7 @@ class UserControllerTest {
 
     @Test
     @DisplayName("로그인 성공")
-    @WithMockUser
+    @WithAnonymousUser
     void login_success() throws Exception {
         String userName  = "sanghoon";
         String password  = "1243";
@@ -85,7 +84,7 @@ class UserControllerTest {
 
     @Test
     @DisplayName("로그인 실패 - 없는 ID")
-    @WithMockUser
+    @WithAnonymousUser
     void login_fail() throws Exception {
         String userName  = "sanghoon";
         String password  = "1243";
