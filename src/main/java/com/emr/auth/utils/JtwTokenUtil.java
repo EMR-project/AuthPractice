@@ -1,4 +1,4 @@
-package utils;
+package com.emr.auth.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
