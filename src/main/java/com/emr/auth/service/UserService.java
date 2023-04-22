@@ -10,9 +10,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.emr.auth.utils.JtwTokenUtil;
 
+
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
+    private static final String SECRET_KEY = "PRIVATE_KEY";  //TODO Key는 하드코딩 하지말고 외부에서 가져오는것을 권장
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
@@ -48,7 +51,6 @@ public class UserService {
         }
 
         String token = JtwTokenUtil.createToken(selectUser.getUserName(), key, expireTimeMs);
-
         return token;
     }
 
