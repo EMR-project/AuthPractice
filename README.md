@@ -1,4 +1,3 @@
 # AuthPractice
 
-slack alert 테스트입니다.
-커밋 알림 테스트
+Stateless 토큰 기반의 인증 서버를 개발하고 있습니다.
